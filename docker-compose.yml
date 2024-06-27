@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  kind:
+    build: ./kind-service
+    container_name: kind
+    privileged: true
+    ports:
+      - "6443:6443"
+    volumes:
+      - kind-data:/var/lib/docker
+      - ./kubeconfig:/root/.kube/config  # Share the kubeconfig file
+      - ./setup_kind.sh:/setup_kind.sh
+    entrypoint: ["sh", "/setup_kind.sh"]      
+
+  python-client:
+    build: ./python-client
+    container_name: python-client
+    environment:
+      - KUBECONFIG=/root/.kube/config
+    volumes:
+      - ./kubeconfig:/root/.kube/config  # Share the kubeconfig file
+    depends_on:
+      - kind
+    entrypoint: ["python", "/usr/src/app/client.py"]    
+
+volumes:
+  kind-data:
