@@ -1,31 +1,30 @@
-Notes:
 kind container:
-
-Uses the kindest/node image to set up a Kubernetes cluster.
-Exposes the Kubernetes API server on port 6443.
-Mounts a volume kind-data for Docker-in-Docker.
+- Sets up a Kubernetes cluster
+- Spins up another container called `kind-control-plane` that is used to control k8s
 
 
 python-client container:
-
-Builds from a Dockerfile located in the python-client directory.
-Installs necessary Python dependencies specified in requirements.txt.
-Contains a client.py script to interact with the Kubernetes API.
-
+- Controls the k8s cluster by making API calls to the `kind-control-plane` container
 
 KUBECONFIG:
-
-The KUBECONFIG environment variable is set to /root/.kube/config to allow the Python client to find the Kubernetes configuration.
+- The KUBECONFIG environment variable is set to /root/.kube/config to allow the Python client to find the Kubernetes configuration.
 
 
 Dependencies:
-
 The python-client service depends on the kind service, ensuring that the kind cluster is up and running before the Python client starts.
+
+A docker network named `kind` MUST be created prior to running the composition. That's the network the `kind-control-plane` joins.  Furthermore, `python-client` joins it to access the `kind-control-plane`.
+```
+NETWORK ID     NAME                      DRIVER    SCOPE
+455bbcf91bc4   kind                      bridge    local
+```
 
 
 To get this working:
 
-Ensure Docker and Docker Compose are installed.
-Create the necessary directory structure and files as outlined above.
-Run docker-compose up --build to start the services.
-This setup will spin up a kind Kubernetes cluster and a Python client that interacts with the cluster via API calls.
+```
+docker network create --driver bridge kind
+docker-compose up --build
+```
+
+
