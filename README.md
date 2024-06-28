@@ -1,6 +1,6 @@
 # kind_with_controller
 
-A working example of a k8s cluster running in a docker container and another container controlling the k8s cluster.
+A working example of a k8s cluster running in a docker container and another container controlling it via its control plane.
 
 ## kind container:
 - Sets up a Kubernetes cluster
@@ -43,4 +43,5 @@ kind           | ERROR: failed to create cluster: failed to pull image "kindest/
 
 Do from your docker host machine:
 ```
+docker pull kindest/node:v1.30.0@sha256:047357ac0cfea04663786a612ba1eaba9702bef25227a794b52890dd8bcd692e
 ```
