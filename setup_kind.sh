@@ -12,11 +12,11 @@ kind create cluster
 
 echo "Finished Setting up kind cluster"
 
-# Allows the client to do its thing
-while true; do
-    sleep 30  # Wait for 30 seconds before checking again
+# Wait for the client to finish
+# Loop as long as python-client is pingable
+while ping -c 1 python-client &> /dev/null; do
+    echo "python-client is still reachable"
+    sleep 5  # Wait for 30 seconds before checking again
 done
-
-
 
 
