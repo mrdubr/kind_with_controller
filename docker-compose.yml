@@ -5,8 +5,6 @@ services:
     build: ./kind-service
     container_name: kind
     privileged: true
-    # ports:
-    #   - "32767:6445"
     networks:
       - kind-network      
     volumes:

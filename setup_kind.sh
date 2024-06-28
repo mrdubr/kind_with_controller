@@ -16,7 +16,7 @@ echo "Finished Setting up kind cluster"
 # Loop as long as python-client is pingable
 while ping -c 1 python-client &> /dev/null; do
     echo "python-client is still reachable"
-    sleep 5  # Wait for 30 seconds before checking again
+    sleep 5  
 done
 
 
