@@ -4,7 +4,7 @@ services:
   kind:
     build: ./kind-service
     container_name: kind
-    privileged: true
+    # privileged: true
     networks:
       - kind-network      
     volumes:
