@@ -4,9 +4,8 @@ services:
   kind:
     build: ./kind-service
     container_name: kind
-    # privileged: true
     networks:
-      - kind-network      
+      - kind
     volumes:
       - kind-data:/var/lib/docker
       - ./kube_dir:/root/.kube  # Share the kubeconfig file
@@ -23,7 +22,6 @@ services:
     environment:
       - KUBECONFIG=/root/.kube/config
     networks:
-      - kind-network
       - kind
     volumes:
       - ./kube_dir:/root/.kube  # Share the kubeconfig file
@@ -39,7 +37,7 @@ volumes:
   kind-data:
 
 networks:
-  kind-network:
-    driver: bridge
-  kind: # define the kind network
-    external: true # specifies that the network already exists in docker
+  # MUST create the network before running the containers
+  # The network `kind-control-plane` container joins and it cannot be reconfigured
+  kind: 
+    external: true
