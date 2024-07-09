@@ -4,8 +4,6 @@ services:
   kind:
     build: ./kind-service
     container_name: kind
-    networks:
-      - kind
     volumes:
       - kind-data:/var/lib/docker
       - ./kube_dir:/root/.kube  # Share the kubeconfig file
@@ -22,7 +20,7 @@ services:
     environment:
       - KUBECONFIG=/root/.kube/config
     networks:
-      - kind
+      - rundeck-network
     volumes:
       - ./kube_dir:/root/.kube  # Share the kubeconfig file
     depends_on:
@@ -36,8 +34,9 @@ services:
 volumes:
   kind-data:
 
+
 networks:
   # MUST create the network before running the containers
-  # The network `kind-control-plane` container joins and it cannot be reconfigured
-  kind: 
+  rundeck-network:
     external: true
+    name: rundeck_network
