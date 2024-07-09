@@ -19,7 +19,7 @@ A working example of a k8s cluster running in a docker container and another con
 ## Dependencies:
 The python-client service depends on the kind service, ensuring that the kind cluster is up and running before the Python client starts.
 
-A docker network named `kind` MUST be created prior to running the composition. That's the network the `kind-control-plane` joins and it's NOT configurable.
+A docker network named `kind` MUST be created prior to running the composition. That's the network the `kind-control-plane` joins and it's [NOT configurable](https://github.com/kubernetes-sigs/kind/issues/273).
 ```
 NETWORK ID     NAME                      DRIVER    SCOPE
 455bbcf91bc4   kind                      bridge    local
