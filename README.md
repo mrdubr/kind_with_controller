@@ -30,6 +30,24 @@ docker-compose build
 docker-compose up
 ```
 
+## To use `kubectl`
+```
+# From the project root
+$ export KUBECONFIG=$(pwd)/kube_dir/config
+$ kubectl get nodes
+NAME                 STATUS   ROLES           AGE     VERSION
+kind-control-plane   Ready    control-plane   2m43s   v1.30.0
+```
+
+```
+$ kubectl apply -f samples/nginx-pod.yaml
+pod/nginx-pod created
+$ kubectl exec -it nginx-pod -- /bin/sh
+# exit
+command terminated with exit code 127
+$ kubectl delete pod nginx-pod
+pod "nginx-pod" deleted
+```
 
 ## Known Issues
 
