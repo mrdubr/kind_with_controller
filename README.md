@@ -39,15 +39,37 @@ NAME                 STATUS   ROLES           AGE     VERSION
 kind-control-plane   Ready    control-plane   2m43s   v1.30.0
 ```
 
+### Pod management
+
 ```
 $ kubectl apply -f samples/nginx-pod.yaml
 pod/nginx-pod created
+
 $ kubectl exec -it nginx-pod -- /bin/sh
 # exit
 command terminated with exit code 127
+
 $ kubectl delete pod nginx-pod
 pod "nginx-pod" deleted
 ```
+
+### Deployment management
+```
+$ kubectl apply -f samples/nginx-deployment.yaml
+deployment.apps/nginx-deployment created
+
+$ kubectl get deployments
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   1/1     1            1           33s
+
+$ kubectl get pods
+NAME                               READY   STATUS    RESTARTS   AGE
+nginx-deployment-576c6b7b6-4cthc   1/1     Running   0          55s
+
+$ kubectl delete deployment nginx-deployment
+deployment.apps "nginx-deployment" deleted
+```
+
 
 ## Known Issues
 

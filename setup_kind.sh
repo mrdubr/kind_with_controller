@@ -28,6 +28,10 @@ echo "Finished setting up kind cluster"
 # If you're curious about the cluster config
 # cat /root/.kube/config
 
+# Use sed to replace '127.0.0.1' with 'kind-control-plane' so that external client can access it
+sed 's|https://127.0.0.1|https://kind-control-plane|g' /root/.kube/config > /root/.kube/config_external
+
+
 # Wait for the client to finish its work
 # Loop as long as python-client is pingable
 while ping -c 1 python-client &> /dev/null; do
