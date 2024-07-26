@@ -84,6 +84,22 @@ $ kubectl delete service my-service
 service "my-service" deleted
 ```
 
+### Job management
+```
+$ kubectl apply -f samples/nginx-job.yaml
+job.batch/nginx-job created
+
+$ kubectl get jobs
+NAME        STATUS    COMPLETIONS   DURATION   AGE
+nginx-job   Running   0/1           4s         4s
+
+$ kubectl get pods --selector=job-name=nginx-job
+NAME              READY   STATUS      RESTARTS   AGE
+nginx-job-tnx99   0/1     Completed   0          42s
+
+$ kubectl delete job nginx-job
+job.batch "nginx-job" deleted
+```
 
 ## Known Issues
 
