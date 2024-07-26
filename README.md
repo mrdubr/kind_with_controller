@@ -70,6 +70,20 @@ $ kubectl delete deployment nginx-deployment
 deployment.apps "nginx-deployment" deleted
 ```
 
+### Service management
+```
+$ kubectl apply -f samples/nginx-service.yaml
+service/my-service created
+
+$ kubectl get services
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP    5m31s
+my-service   ClusterIP   10.96.217.119   <none>        8081/TCP   24s
+
+$ kubectl delete service my-service 
+service "my-service" deleted
+```
+
 
 ## Known Issues
 
