@@ -101,6 +101,29 @@ $ kubectl delete job nginx-job
 job.batch "nginx-job" deleted
 ```
 
+### StatefulSet management
+```
+# Creating a StatefulSet
+$ kubectl apply -f samples/nginx-stateful-set.yaml
+statefulset.apps/example-statefulset created
+
+# Viewing StatefulSets
+$ kubectl get statefulsets
+NAME                  READY   AGE
+example-statefulset   2/2     13s
+
+# Viewing Pods Created by a StatefulSet
+$ kubectl get pods --selector=app=example
+NAME                    READY   STATUS    RESTARTS   AGE
+example-statefulset-0   1/1     Running   0          29s
+example-statefulset-1   1/1     Running   0          28s
+
+
+# Deleting a StatefulSet
+$ kubectl delete statefulset example-statefulset
+statefulset.apps "example-statefulset" deleted
+```
+
 ## Known Issues
 
 If you get:
